@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+
+{% block title %}Cleanliness Map{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="text-center mb-5 fade-in">
+                <h1 class="display-4 fw-bold mb-3" style="background: linear-gradient(45deg, var(--text-white), var(--accent-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    Cleanliness Map
+                </h1>
+                <p class="lead text-light">
+                    Interactive map showing real-time cleanliness levels across campus
+                </p>
+            </div>
+            
+            <div class="alert alert-info">
+                <i class="fas fa-map-marked-alt me-2"></i>
+                Interactive map showing cleanliness levels across different areas. 
+                Green areas are clean, yellow areas are lightly dirty, and red areas need immediate attention.
+            </div>
+
+            <!-- Map Legend -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="mb-2">
+                                <i class="fas fa-circle fa-2x text-success"></i>
+                            </div>
+                            <h5 class="card-title">Clean Areas</h5>
+                            <p class="card-text text-muted">Well-maintained, minimal waste</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="mb-2">
+                                <i class="fas fa-circle fa-2x text-warning"></i>
+                            </div>
+                            <h5 class="card-title">Lightly Dirty</h5>
+                            <p class="card-text text-muted">Some waste present, needs attention</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="mb-2">
+                                <i class="fas fa-circle fa-2x text-danger"></i>
+                            </div>
+                            <h5 class="card-title">Unhealthy Areas</h5>
+                            <p class="card-text text-muted">Heavy pollution, immediate action needed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Map -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-map me-2"></i>SRM Campus Cleanliness Map</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div id="map" style="height: 500px; width: 100%;"></div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="text-success" id="cleanCount">0</h3>
+                            <p class="text-muted">Clean Areas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="text-warning" id="dirtyCount">0</h3>
+                            <p class="text-muted">Lightly Dirty</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="text-danger" id="unhealthyCount">0</h3>
+                            <p class="text-muted">Unhealthy Areas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="text-primary" id="totalCount">0</h3>
+                            <p class="text-muted">Total Areas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Detections -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Detections</h5>
+                </div>
+                <div class="card-body">
+                    <div id="recentDetections">
+                        <p class="text-muted text-center">No recent detections available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+// Initialize map
+const map = L.map('map').setView([12.8236, 80.0434], 15); // SRM University coordinates
+
+// Add OpenStreetMap tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+// Color mapping
+const colors = {
+    clean: 'green',
+    dirty: 'orange',
+    unhealthy: 'red'
+};
+
+// Store markers for updates
+let markers = [];
+
+// Load map data from API
+async function loadMapData() {
+    try {
+        const response = await fetch('/api/map-data');
+        const data = await response.json();
+        
+        // Clear existing markers
+        markers.forEach(marker => map.removeLayer(marker));
+        markers = [];
+        
+        // Add new markers
+        data.markers.forEach(markerData => {
+            const marker = L.circleMarker([markerData.lat, markerData.lng], {
+                radius: 15,
+                fillColor: colors[markerData.level],
+                color: '#000',
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).addTo(map);
+
+            marker.bindPopup(`
+                <div>
+                    <h6><strong>${markerData.name}</strong></h6>
+                    <p><strong>Waste Type:</strong> ${markerData.waste_type}</p>
+                    <p><strong>Severity:</strong> ${markerData.severity}</p>
+                    <p><strong>Confidence:</strong> ${(markerData.confidence * 100).toFixed(1)}%</p>
+                    <p><strong>Time:</strong> ${new Date(markerData.timestamp).toLocaleString()}</p>
+                    <span class="badge bg-${colors[markerData.level]}">${markerData.level.toUpperCase()}</span>
+                </div>
+            `);
+
+            markers.push(marker);
+        });
+        
+        // Update statistics
+        updateStatistics(data.statistics);
+        
+        // Update recent detections
+        updateRecentDetections(data.markers.slice(0, 5));
+        
+    } catch (error) {
+        console.error('Error loading map data:', error);
+    }
+}
+
+// Update statistics
+function updateStatistics(stats) {
+    document.getElementById('cleanCount').textContent = stats.clean;
+    document.getElementById('dirtyCount').textContent = stats.dirty;
+    document.getElementById('unhealthyCount').textContent = stats.unhealthy;
+    document.getElementById('totalCount').textContent = stats.total;
+}
+
+// Update recent detections
+function updateRecentDetections(detections) {
+    const container = document.getElementById('recentDetections');
+    if (detections.length === 0) {
+        container.innerHTML = '<p class="text-muted text-center">No recent detections available</p>';
+        return;
+    }
+    
+    container.innerHTML = detections.map(detection => {
+        const timeAgo = getTimeAgo(new Date(detection.timestamp));
+        return `
+            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                <div>
+                    <strong>${detection.name}</strong><br>
+                    <small class="text-muted">${detection.waste_type} - ${detection.severity}</small>
+                </div>
+                <small class="text-muted">${timeAgo}</small>
+            </div>
+        `;
+    }).join('');
+}
+
+// Helper function to get time ago
+function getTimeAgo(date) {
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+    
+    if (diffMins < 1) return 'Just now';
+    if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+}
+
+// Load initial data
+loadMapData();
+
+// Update map data every 30 seconds
+setInterval(loadMapData, 30000);
+</script>
+{% endblock %}

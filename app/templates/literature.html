@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Literature Review{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h1 class="display-5 fw-bold mb-4">Literature Review</h1>
+            
+            <section class="mb-5">
+                <h2 class="h3 mb-3">1. Introduction</h2>
+                <p class="text-muted">
+                    Waste management has emerged as a critical challenge in modern society, with 
+                    increasing urbanization and industrial growth generating massive amounts of 
+                    solid waste. Traditional waste management systems rely heavily on manual 
+                    sorting, which is labor-intensive, time-consuming, and prone to human error. 
+                    The integration of Artificial Intelligence (AI) and Computer Vision technologies 
+                    presents a transformative solution to automate and optimize waste classification 
+                    processes.
+                </p>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h3 mb-3">2. Related Work</h2>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Deep Learning in Waste Classification</h5>
+                        <p class="card-text">
+                            <strong>Wang et al. (2020)</strong> proposed a ResNet-based waste classification 
+                            system achieving 85% accuracy on a 5-class dataset. Their approach demonstrated 
+                            the effectiveness of transfer learning in waste categorization tasks.
+                        </p>
+                        <p class="card-text">
+                            <strong>Yang et al. (2021)</strong> developed a hybrid CNN-RNN architecture 
+                            for waste classification, leveraging both spatial and temporal features 
+                            to improve classification accuracy to 88% on diverse waste materials.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Explainable AI in Environmental Applications</h5>
+                        <p class="card-text">
+                            <strong>Zhang et al. (2022)</strong> introduced Grad-CAM visualizations 
+                            in waste classification systems to improve transparency and trust in AI 
+                            decisions. Their study highlighted the importance of explainability 
+                            in deployment scenarios.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">MobileNet and Edge Deployment</h5>
+                        <p class="card-text">
+                            <strong>Howard et al. (2019)</strong> developed MobileNetV2, a lightweight 
+                            CNN architecture optimized for mobile and embedded devices. The architecture 
+                            balances accuracy and computational efficiency, making it ideal for 
+                            real-time waste detection systems.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

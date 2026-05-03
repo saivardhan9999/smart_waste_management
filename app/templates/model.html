@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Model{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h1 class="display-5 fw-bold mb-4">Model Architecture & Performance</h1>
+
+            <section class="mb-5">
+                <h2 class="h3 mb-3">Model Architecture</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">MobileNetV2 for Waste Classification</h5>
+                        <p class="card-text">
+                            The model employs MobileNetV2 as the base architecture with ImageNet pre-trained 
+                            weights. Transfer learning is applied to adapt the model for waste classification, 
+                            followed by fine-tuning on our 6-class waste dataset.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="h3 mb-3">Performance Metrics</h2>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3 col-6">
+                        <div class="card text-center bg-primary text-white h-100">
+                            <div class="card-body">
+                                <h2 class="display-6 fw-bold">{{ "%.2f"|format(metrics.accuracy * 100) }}%</h2>
+                                <p class="mb-0">Accuracy</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card text-center bg-success text-white h-100">
+                            <div class="card-body">
+                                <h2 class="display-6 fw-bold">{{ "%.2f"|format(metrics.precision * 100) }}%</h2>
+                                <p class="mb-0">Precision</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card text-center bg-info text-white h-100">
+                            <div class="card-body">
+                                <h2 class="display-6 fw-bold">{{ "%.2f"|format(metrics.recall * 100) }}%</h2>
+                                <p class="mb-0">Recall</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="card text-center bg-warning text-white h-100">
+                            <div class="card-body">
+                                <h2 class="display-6 fw-bold">{{ "%.2f"|format(metrics.f1_score * 100) }}%</h2>
+                                <p class="mb-0">F1 Score</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
