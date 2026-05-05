@@ -23,7 +23,7 @@ try:
     from app.ml.grad_cam import GradCAM
     ML_AVAILABLE = True
 except ImportError as e:
-    print(f"⚠ ML modules not available: {e}")
+    print(f"ML modules not available: {e}")
     ML_AVAILABLE = False
     # Use mock classes for demonstration
     from app.ml.mock_predictor import MockWastePredictor as WastePredictor
@@ -87,21 +87,21 @@ def init_ml_components():
         if ML_AVAILABLE and Config.MODEL_PATH.exists():
             predictor = WastePredictor(Config.MODEL_PATH)
             grad_cam = GradCAM(predictor.model, Config.CLASS_NAMES)
-            print("✓ ML model loaded successfully")
+            print("ML model loaded successfully")
         else:
             # Use mock predictor for demonstration
             predictor = WastePredictor()
             grad_cam = GradCAM(None, Config.CLASS_NAMES)
             if not ML_AVAILABLE:
-                print("⚠ Using mock predictor - TensorFlow not available")
+                print("Using mock predictor - TensorFlow not available")
             else:
-                print("⚠ Using mock predictor - Model file not found")
+                print("Using mock predictor - Model file not found")
     except Exception as e:
-        print(f"⚠ ML model not available: {e}")
+        print(f"ML model not available: {e}")
         # Fallback to mock predictor
         predictor = WastePredictor()
         grad_cam = GradCAM(None, Config.CLASS_NAMES)
-        print("⚠ Using mock predictor as fallback")
+        print("Using mock predictor as fallback")
 
 # Try to initialize on module load
 try:
@@ -445,4 +445,3 @@ def delete_contact(contact_id):
     db.session.commit()
     flash('Contact message deleted', 'success')
     return redirect(url_for('admin.contacts'))
-

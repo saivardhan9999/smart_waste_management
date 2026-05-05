@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Smart Waste Management System{% endblock %} - SRM Institute</title>
+    <title>{% block title %}Smart Waste Detection{% endblock %} - SRM Institute</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,10 +25,10 @@
     <div class="particles" id="particles"></div>
     
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('main.index') }}">
-                <i class="fas fa-recycle me-2"></i>Smart Waste AI
+                <i class="fas fa-recycle"></i>SRM Smart Waste
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -39,9 +39,6 @@
                         <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.literature') }}">Literature</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('main.model') }}">Model</a>
                     </li>
                     <li class="nav-item">
@@ -49,6 +46,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('main.map') }}">Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.literature') }}">Research</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('main.team') }}">Team</a>
@@ -93,16 +93,17 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
+    <footer class="py-5 mt-5">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Smart Waste Management System</h5>
-                    <p class="text-muted">Powered by CNN + Explainable AI</p>
+            <div class="row align-items-end g-4">
+                <div class="col-md-7">
+                    <p class="section-kicker mb-3">SRM campus intelligence</p>
+                    <h2 class="mb-3" style="font-weight: 900; line-height: .95;">For a cleaner,<br>smarter campus.</h2>
+                    <p class="text-muted mb-0">Powered by MobileNetV2, Grad-CAM, Flask, and Leaflet.js.</p>
                 </div>
-                <div class="col-md-6 text-md-end">
-                    <p>&copy; 2024 SRM Institute of Science and Technology</p>
-                    <p class="text-muted">Machine Learning Project - E2</p>
+                <div class="col-md-5 text-md-end">
+                    <p class="mb-1">&copy; 2024 SRM Institute of Science and Technology</p>
+                    <p class="text-muted mb-0">Machine Learning Project - E2</p>
                 </div>
             </div>
         </div>
@@ -116,12 +117,12 @@
     
     <!-- Modern UI Animations -->
     <script>
-    // Create animated particles
     function createParticles() {
         const particlesContainer = document.getElementById('particles');
         if (!particlesContainer) return;
         
-        const particleCount = 30;
+        const particleCount = window.innerWidth < 768 ? 16 : 32;
+        particlesContainer.innerHTML = '';
         
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
@@ -133,7 +134,6 @@
         }
     }
 
-    // Scroll animations
     function handleScrollAnimations() {
         const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
         
@@ -147,16 +147,23 @@
         });
     }
 
-    // Initialize animations
     document.addEventListener('DOMContentLoaded', function() {
+        document.body.classList.add('motion-ready');
         createParticles();
         handleScrollAnimations();
         
         window.addEventListener('scroll', handleScrollAnimations);
+
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.navbar .nav-link').forEach(link => {
+            const linkPath = new URL(link.href).pathname;
+            if (linkPath === currentPath || (currentPath === '/' && linkPath === '/')) {
+                link.classList.add('active');
+            }
+        });
     });
     </script>
     
     {% block extra_js %}{% endblock %}
 </body>
 </html>
-

@@ -14,7 +14,7 @@ class MockWastePredictor:
         """Initialize mock predictor"""
         self.class_names = ['glass', 'paper', 'cardboard', 'plastic', 'metal', 'trash']
         self.img_size = (224, 224)
-        print("⚠ Using MockWastePredictor - TensorFlow not available")
+        print("Using MockWastePredictor - TensorFlow not available")
     
     def preprocess_image(self, image):
         """Mock preprocess image"""
@@ -89,7 +89,7 @@ class MockGradCAM:
     def __init__(self, model, class_names):
         """Initialize mock GradCAM"""
         self.class_names = class_names
-        print("⚠ Using MockGradCAM - TensorFlow not available")
+        print("Using MockGradCAM - TensorFlow not available")
     
     def generate_heatmap(self, image, predicted_class):
         """Generate mock heatmap"""

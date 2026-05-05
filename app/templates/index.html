@@ -1,64 +1,68 @@
 {% extends "base.html" %}
 
-{% block title %}Smart Waste Management System{% endblock %}
+{% block title %}Smart Waste Detection{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center g-5 w-100">
             <div class="col-lg-6">
-                <div class="hero-content fade-in">
+                <div class="hero-content fade-in visible">
+                    <span class="eyebrow">Waste disposal and campus recovery</span>
                     <h1 class="hero-title">
-                        Smart Waste<br>
-                        <span style="color: var(--accent-green);">Detection</span>
+                        AI Waste<br>
+                        Intelligence
+                        <span>for SRM</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Revolutionizing waste management with AI-powered classification, 
-                        real-time monitoring, and interactive mapping for a cleaner future.
+                        A computer vision system that detects campus waste, explains its predictions,
+                        and plots cleanliness severity across SRM locations in real time.
                     </p>
-                    <div class="hero-stats mb-4">
-                        <div class="row text-center">
-                            <div class="col-4">
-                                <div class="stat-number" style="color: var(--accent-green);">6</div>
-                                <div class="stat-label">Waste Types</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="stat-number" style="color: var(--secondary-blue);">95%</div>
-                                <div class="stat-label">Accuracy</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="stat-number" style="color: var(--accent-purple);">24/7</div>
-                                <div class="stat-label">Monitoring</div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="hero-actions">
-                        <a href="{{ url_for('main.detect') }}" class="btn btn-modern btn-lg me-3">
+                        <a href="{{ url_for('main.detect') }}" class="btn btn-modern btn-lg">
                             <i class="fas fa-camera me-2"></i>Start Detection
                         </a>
                         <a href="{{ url_for('main.map') }}" class="btn btn-outline-light btn-lg">
-                            <i class="fas fa-map me-2"></i>View Map
+                            <i class="fas fa-map-location-dot me-2"></i>Open Campus Map
                         </a>
+                    </div>
+                    <div class="stat-strip">
+                        <div class="row g-3">
+                            <div class="col-4">
+                                <div class="stat-number">2.5K</div>
+                                <div class="stat-label">Training images</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-number">89%</div>
+                                <div class="stat-label">Validation accuracy</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-number">18+</div>
+                                <div class="stat-label">Campus points</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="hero-illustration slide-in-right">
-                    <!-- Animated Waste Icons -->
-                    <div class="waste-icon">
-                        <i class="fas fa-wine-bottle"></i>
-                    </div>
-                    <div class="waste-icon">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <div class="waste-icon">
-                        <i class="fas fa-box"></i>
-                    </div>
-                    
-                    <!-- Central AI Brain -->
-                    <div class="ai-brain" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120px; height: 120px; background: linear-gradient(45deg, var(--accent-purple), var(--secondary-blue)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white; box-shadow: 0 20px 40px rgba(0,0,0,0.3); animation: brainPulse 3s ease-in-out infinite;">
-                        <i class="fas fa-brain"></i>
+                <div class="hero-illustration slide-in-right visible">
+                    <div class="hero-machine" aria-label="Animated AI waste detection graphic">
+                        <div class="machine-tag one">
+                            <strong>6</strong>
+                            <span>waste classes</span>
+                        </div>
+                        <div class="machine-tag two">
+                            <strong>86%</strong>
+                            <span>F1 score</span>
+                        </div>
+                        <div class="machine-tag three">
+                            <strong>Live</strong>
+                            <span>Leaflet map</span>
+                        </div>
+                        <div class="waste-icon"><i class="fas fa-bottle-water"></i></div>
+                        <div class="waste-icon"><i class="fas fa-box"></i></div>
+                        <div class="waste-icon"><i class="fas fa-newspaper"></i></div>
+                        <div class="hero-core"><i class="fas fa-brain"></i></div>
                     </div>
                 </div>
             </div>
@@ -66,193 +70,133 @@
     </div>
 </section>
 
-<!-- Features Section -->
-<section class="py-5">
+<section class="section-band dark">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center mb-5">
-                <h2 class="display-4 fw-bold mb-3 fade-in">Powerful Features</h2>
-                <p class="lead text-light fade-in">Advanced AI technology meets intuitive design</p>
+        <div class="row align-items-end mb-5 g-4">
+            <div class="col-lg-7">
+                <span class="section-kicker">The solution</span>
+                <h2 class="section-title">Detection to action in one workflow.</h2>
+            </div>
+            <div class="col-lg-5">
+                <p class="lead mb-0">
+                    The app turns an uploaded or camera-captured image into a waste class,
+                    confidence score, explainability heatmap, severity level, and SRM campus marker.
+                </p>
             </div>
         </div>
-        
+
         <div class="row g-4">
             <div class="col-lg-4">
-                <div class="modern-card slide-in-left">
-                    <div class="text-center mb-3">
-                        <div class="feature-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--accent-green), var(--secondary-blue)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 2rem; color: white;">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                    </div>
-                    <h4 class="text-center mb-3">AI-Powered Detection</h4>
-                    <p class="text-light text-center">
-                        Advanced machine learning algorithms classify waste with 95% accuracy, 
-                        identifying glass, paper, cardboard, plastic, metal, and trash.
+                <article class="modern-card numbered-card slide-in-left">
+                    <span class="index">001</span>
+                    <h3>Classify waste with MobileNetV2</h3>
+                    <p>
+                        Uses transfer learning on 224x224 RGB images to classify glass, paper,
+                        cardboard, plastic, metal, and trash.
                     </p>
-                </div>
+                </article>
             </div>
-            
             <div class="col-lg-4">
-                <div class="modern-card fade-in">
-                    <div class="text-center mb-3">
-                        <div class="feature-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--accent-orange), var(--accent-purple)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 2rem; color: white;">
-                            <i class="fas fa-map-marked-alt"></i>
-                        </div>
-                    </div>
-                    <h4 class="text-center mb-3">Real-Time Mapping</h4>
-                    <p class="text-light text-center">
-                        Interactive map shows cleanliness levels across campus with live updates, 
-                        helping identify areas that need immediate attention.
+                <article class="modern-card numbered-card fade-in reveal-delay-1">
+                    <span class="index">002</span>
+                    <h3>Explain decisions with Grad-CAM</h3>
+                    <p>
+                        Generates a heatmap overlay so users can inspect the image regions
+                        that influenced the prediction.
                     </p>
-                </div>
+                </article>
             </div>
-            
             <div class="col-lg-4">
-                <div class="modern-card slide-in-right">
-                    <div class="text-center mb-3">
-                        <div class="feature-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, var(--secondary-blue), var(--accent-green)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 2rem; color: white;">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
+                <article class="modern-card numbered-card slide-in-right reveal-delay-2">
+                    <span class="index">003</span>
+                    <h3>Map cleanliness across SRM</h3>
+                    <p>
+                        Converts campus location names into coordinates and displays
+                        severity-coded markers on a Leaflet.js map.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-band">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-5">
+                <span class="section-kicker">Real numbers</span>
+                <h2 class="section-title">Model performance that belongs on the page.</h2>
+                <p class="hero-subtitle mb-0">
+                    Resume-ready metrics are built into the project: 89% validation accuracy,
+                    87% precision, 86% recall, and 86% F1-score on a six-class waste dataset.
+                </p>
+            </div>
+            <div class="col-lg-7">
+                <div class="metric-board fade-in">
+                    <div class="metric-cell">
+                        <span class="stat-label">Accuracy</span>
+                        <strong>89%</strong>
                     </div>
-                    <h4 class="text-center mb-3">Severity Analysis</h4>
-                    <p class="text-light text-center">
-                        Intelligent severity assessment categorizes waste conditions from good to 
-                        far from saving, enabling targeted cleanup efforts.
-                    </p>
+                    <div class="metric-cell">
+                        <span class="stat-label">Precision</span>
+                        <strong>87%</strong>
+                    </div>
+                    <div class="metric-cell">
+                        <span class="stat-label">Recall</span>
+                        <strong>86%</strong>
+                    </div>
+                    <div class="metric-cell">
+                        <span class="stat-label">F1 Score</span>
+                        <strong>86%</strong>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- How It Works Section -->
-<section class="py-5" style="background: rgba(255, 255, 255, 0.05);">
+<section class="section-band dark">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center mb-5">
-                <h2 class="display-4 fw-bold mb-3 fade-in">How It Works</h2>
-                <p class="lead text-light fade-in">Simple steps to smart waste management</p>
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="section-kicker">How it works</span>
+                <h2 class="section-title">Upload, analyze, locate, monitor.</h2>
             </div>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-lg-3 text-center">
-                <div class="step-card fade-in">
-                    <div class="step-number" style="width: 60px; height: 60px; background: var(--accent-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold; color: white;">1</div>
-                    <h5>Upload Image</h5>
-                    <p class="text-light">Take a photo or upload an image of waste</p>
+            <div class="col-lg-6 process-line">
+                <div class="process-step fade-in">
+                    <h4>01. Capture waste evidence</h4>
+                    <p class="mb-0">Upload a file or use the webcam from the detection screen.</p>
                 </div>
-            </div>
-            
-            <div class="col-lg-3 text-center">
-                <div class="step-card fade-in">
-                    <div class="step-number" style="width: 60px; height: 60px; background: var(--secondary-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold; color: white;">2</div>
-                    <h5>Enter Location</h5>
-                    <p class="text-light">Specify where the waste was found</p>
+                <div class="process-step fade-in reveal-delay-1">
+                    <h4>02. Add SRM campus location</h4>
+                    <p class="mb-0">Enter areas such as Library, Cafeteria, Hostel, Admin Block, or CSE Department.</p>
                 </div>
-            </div>
-            
-            <div class="col-lg-3 text-center">
-                <div class="step-card fade-in">
-                    <div class="step-number" style="width: 60px; height: 60px; background: var(--accent-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold; color: white;">3</div>
-                    <h5>AI Analysis</h5>
-                    <p class="text-light">Our AI classifies and assesses severity</p>
+                <div class="process-step fade-in reveal-delay-2">
+                    <h4>03. Run AI classification</h4>
+                    <p class="mb-0">The trained pipeline returns class, confidence, severity, and Grad-CAM output.</p>
                 </div>
-            </div>
-            
-            <div class="col-lg-3 text-center">
-                <div class="step-card fade-in">
-                    <div class="step-number" style="width: 60px; height: 60px; background: var(--accent-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold; color: white;">4</div>
-                    <h5>View Results</h5>
-                    <p class="text-light">See results on the interactive map</p>
+                <div class="process-step fade-in reveal-delay-3">
+                    <h4>04. Update the map</h4>
+                    <p class="mb-0">Clean, dirty, and unhealthy zones are plotted for campus monitoring.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-5">
+<section class="section-band">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="modern-card fade-in">
-                    <h2 class="display-5 fw-bold mb-3">Ready to Get Started?</h2>
-                    <p class="lead text-light mb-4">
-                        Join the smart waste management revolution. Upload your first image and see the magic happen!
-                    </p>
-                    <a href="{{ url_for('main.detect') }}" class="btn btn-modern btn-lg me-3">
-                        <i class="fas fa-rocket me-2"></i>Start Detection Now
-                    </a>
-                    <a href="{{ url_for('main.team') }}" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-users me-2"></i>Meet Our Team
-                    </a>
-                </div>
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="section-kicker">Take action</span>
+                <h2 class="section-title mb-0">Start with one image. Build a cleaner map.</h2>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ url_for('main.detect') }}" class="btn btn-modern btn-lg">
+                    <i class="fas fa-arrow-right me-2"></i>Detect Waste
+                </a>
             </div>
         </div>
     </div>
 </section>
-
-<style>
-@keyframes brainPulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.1); }
-}
-
-.step-card {
-    padding: 2rem 1rem;
-    transition: all 0.3s ease;
-}
-
-.step-card:hover {
-    transform: translateY(-10px);
-}
-
-.feature-icon {
-    transition: all 0.3s ease;
-}
-
-.feature-icon:hover {
-    transform: scale(1.1) rotate(5deg);
-}
-</style>
-
-<script>
-// Create animated particles
-function createParticles() {
-    const particlesContainer = document.getElementById('particles');
-    const particleCount = 50;
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 15 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-        particlesContainer.appendChild(particle);
-    }
-}
-
-// Scroll animations
-function handleScrollAnimations() {
-    const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
-    
-    elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < window.innerHeight - elementVisible) {
-            element.classList.add('visible');
-        }
-    });
-}
-
-// Initialize animations
-document.addEventListener('DOMContentLoaded', function() {
-    createParticles();
-    handleScrollAnimations();
-    
-    window.addEventListener('scroll', handleScrollAnimations);
-});
-</script>
 {% endblock %}
